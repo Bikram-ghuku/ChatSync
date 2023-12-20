@@ -10,8 +10,16 @@ const Home = () => {
                 <Image source={require('../assets/icon.png')} />
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button}><Text style={{color: '#003399'}}>Login</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button}><Text style={{color: '#003399'}}>Signup</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button}>
+                    <Text style={{color: '#003399'}}>
+                       Login
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button}>
+                    <Text style={{color: '#003399'}}>
+                        Signup
+                    </Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     )
