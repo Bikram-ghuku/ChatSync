@@ -2,20 +2,22 @@ import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { vh, vw } from 'react-native-expo-viewport-units'
+import { useNavigation } from '@react-navigation/native'
 
 const Home = () => {
+    const navigation = useNavigation()
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.imageContainer}>
                 <Image source={require('../assets/icon.png')} />
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
                     <Text style={{color: '#003399'}}>
                        Login
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Signup')}>
                     <Text style={{color: '#003399'}}>
                         Signup
                     </Text>
