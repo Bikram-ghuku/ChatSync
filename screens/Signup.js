@@ -5,6 +5,7 @@ import Icon2 from 'react-native-vector-icons/Entypo'
 import { Image, Input } from 'react-native-elements'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 import { useNavigation } from '@react-navigation/native'
+import {API_URL} from '@env'
 
 const Signup = () => {
     const navigation = useNavigation()
@@ -16,8 +17,7 @@ const Signup = () => {
             alert('Please fill all the fields')
             return
         }
-        console.log(name, email, password)
-        fetch('http://10.0.2.2:3030/register', {
+        fetch(`${API_URL}/register`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
