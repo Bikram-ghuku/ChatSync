@@ -1,14 +1,45 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon2 from 'react-native-vector-icons/Entypo'
 import { Image, Input } from 'react-native-elements'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 import { useNavigation } from '@react-navigation/native'
 
-
 const Signup = () => {
     const navigation = useNavigation()
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const handleRegister = () => {
+        if (name == '' || email == '' || password == '') {
+            alert('Please fill all the fields')
+            return
+        }
+        console.log(name, email, password)
+        fetch('http://10.0.2.2:3030/register', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                pswd: password
+            })
+        }).then((res) => res.json()).then((data) => {
+            console.log(data)
+            if (data.status == 'success') {
+                alert('User registered successfully')
+                navigation.navigate('Login')
+            } else {
+                alert('User already exists')
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     return (
         <View style={{height: vh(100), width: vw(100)}}>
             <View style={styles.container}>
@@ -16,17 +47,17 @@ const Signup = () => {
                 <Text style={{fontSize: 30, fontWeight: 900}}>Register User</Text>
                 <View style={styles.inputs}>
                     <Text style={styles.inputsText}>Name: </Text>
-                    <Input placeholder='Enter your username' style={styles.inputArea} leftIcon={<Icon name='user' size={24}/>}/>
+                    <Input placeholder='Enter your username' style={styles.inputArea} leftIcon={<Icon name='user' size={24}/>} onChangeText={(text) => setName(text)}/>
                 </View>
                 <View style={styles.inputs}>
-                    <Text style={styles.inputsText}>Username: </Text>
-                    <Input placeholder='Enter your username' style={styles.inputArea} leftIcon={<Icon2 name='mail' size={24}/>}/>
+                    <Text style={styles.inputsText}>Email: </Text>
+                    <Input placeholder='Enter your username' style={styles.inputArea} leftIcon={<Icon2 name='mail' size={24}/>} onChangeText={(text) => setEmail(text)}/>
                 </View>
                 <View style={styles.inputs}>
                     <Text style={styles.inputsText}>Password: </Text>
-                    <Input placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} secureTextEntry/>
+                    <Input placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} secureTextEntry onChangeText={(text) => setPassword(text)}/>
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={handleRegister}>
                     <Text style={{color: '#ffffff'}}>Sign Up</Text>
                 </TouchableOpacity>
                 <Text style={{fontSize: 15, fontWeight: 500}}  onPress={() => navigation.navigate('Login')}>
