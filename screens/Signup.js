@@ -4,9 +4,11 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon2 from 'react-native-vector-icons/Entypo'
 import { Image, Input } from 'react-native-elements'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
+import { useNavigation } from '@react-navigation/native'
 
 
-const Login = () => {
+const Signup = () => {
+    const navigation = useNavigation()
     return (
         <View style={{height: vh(100), width: vw(100)}}>
             <View style={styles.container}>
@@ -22,17 +24,23 @@ const Login = () => {
                 </View>
                 <View style={styles.inputs}>
                     <Text style={styles.inputsText}>Password: </Text>
-                    <Input placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>}/>
+                    <Input placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} secureTextEntry/>
                 </View>
                 <TouchableOpacity style={styles.button}>
                     <Text style={{color: '#ffffff'}}>Sign Up</Text>
                 </TouchableOpacity>
+                <Text style={{fontSize: 15, fontWeight: 500}}  onPress={() => navigation.navigate('Login')}>
+                    Already have an account?
+                    <Text style={{color: '#003399', fontWeight: '700'}}>
+                        Login
+                    </Text>
+                </Text>
             </View>
         </View>
     )
 }
 
-export default Login
+export default Signup
 
 const styles = StyleSheet.create({
     container:{

@@ -1,12 +1,16 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon2 from 'react-native-vector-icons/Entypo'
 import { Image, Input } from 'react-native-elements'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
+import { useNavigation } from '@react-navigation/native'
 
 
 const Login = () => {
+    const navigation = useNavigation()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     return (
         <View style={{height: vh(100), width: vw(100)}}>
             <View style={styles.container}>
@@ -14,15 +18,21 @@ const Login = () => {
                 <Text style={{fontSize: 30, fontWeight: 900}}>Login</Text>
                 <View style={styles.inputs}>
                     <Text style={styles.inputsText}>Email: </Text>
-                    <Input placeholder='Enter your username' style={styles.inputArea} leftIcon={<Icon2 name='mail' size={24}/>}/>
+                    <Input placeholder='Enter your username' style={styles.inputArea} leftIcon={<Icon2 name='mail' size={24}/>} onChangeText={(text) => {setEmail(text)}}/>
                 </View>
                 <View style={styles.inputs}>
                     <Text style={styles.inputsText}>Password: </Text>
-                    <Input placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>}/>
+                    <Input secureTextEntry placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} onChange={(text) => setPassword(text)}/>
                 </View>
                 <TouchableOpacity style={styles.button}>
                     <Text style={{color: '#ffffff'}}>Login</Text>
                 </TouchableOpacity>
+                <Text style={{fontSize: 15, fontWeight: 500}}>
+                    Don't have an account?
+                    <Text style={{color: '#003399', fontWeight: '700'}} onPress={() => navigation.navigate('Signup')}>
+                        Signup
+                    </Text>
+                </Text>
             </View>
         </View>
     )
