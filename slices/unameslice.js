@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const UnameSlice = createSlice({
-    name: "chatId",
+export const unameSlice = createSlice({
+    name: "uname",
     initialState: {
         value: null,
     },
@@ -12,8 +12,8 @@ export const UnameSlice = createSlice({
     },
 });
 
-export const { setChatId } = UnameSlice.actions;
+export const { setUname } = unameSlice.actions;
 
-export const selectUname = (state) => state.Uname.value;
+export const selectUname = (state) => state.uname.value;
 
-export default UnameSlice.reducer;
+export default unameSlice.reducer;

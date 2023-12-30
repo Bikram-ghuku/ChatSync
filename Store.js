@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import chatIdReducer from "./slices/chatidSlice";
-import unameReducer from "./slices/unameslice";
+import chatIdReducer from "./slices/ChatidSlice";
+import unameReducer from "./slices/Unameslice";
 
 export default configureStore({
     reducer: {
