@@ -17,7 +17,7 @@ const Login = () => {
             alert('Please fill all the fields')
             return
         }
-        fetch(`${API_URL}/login`, {
+        fetch(`${API_URL}/users/login`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

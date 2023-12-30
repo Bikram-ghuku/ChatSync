@@ -17,7 +17,7 @@ const Signup = () => {
             alert('Please fill all the fields')
             return
         }
-        fetch(`${API_URL}/register`, {
+        fetch(`${API_URL}/users/register`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
