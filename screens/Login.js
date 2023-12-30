@@ -5,12 +5,40 @@ import Icon2 from 'react-native-vector-icons/Entypo'
 import { Image, Input } from 'react-native-elements'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 import { useNavigation } from '@react-navigation/native'
+import {API_URL} from '@env'
 
 
 const Login = () => {
     const navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const handleButtonPress = () => {
+        if (email == '' || password == '') {
+            alert('Please fill all the fields')
+            return
+        }
+        fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }, 
+            body: JSON.stringify({
+                email: email,
+                pswd: password
+            })
+        }).then((data) => {
+            console.log(data)
+            if (data.ok) {
+                alert('User logged in successfully')
+                navigation.navigate('Home')
+            } else {
+                alert('Invalid Credentials')
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     return (
         <View style={{height: vh(100), width: vw(100)}}>
             <View style={styles.container}>
@@ -22,9 +50,9 @@ const Login = () => {
                 </View>
                 <View style={styles.inputs}>
                     <Text style={styles.inputsText}>Password: </Text>
-                    <Input secureTextEntry placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} onChange={(text) => setPassword(text)}/>
+                    <Input secureTextEntry placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} onChangeText={(text) => setPassword(text)}/>
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
                     <Text style={{color: '#ffffff'}}>Login</Text>
                 </TouchableOpacity>
                 <Text style={{fontSize: 15, fontWeight: 500}}>
