@@ -7,33 +7,33 @@ import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 import { useNavigation } from '@react-navigation/native'
 import {API_URL} from '@env'
 
-const Signup = () => {
+
+const Login = () => {
     const navigation = useNavigation()
-    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const handleRegister = () => {
-        if (name == '' || email == '' || password == '') {
+    const handleButtonPress = () => {
+        if (email == '' || password == '') {
             alert('Please fill all the fields')
             return
         }
-        fetch(`${API_URL}/register`, {
+        fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-            },
+            }, 
             body: JSON.stringify({
-                name: name,
                 email: email,
                 pswd: password
             })
         }).then((data) => {
+            console.log(data)
             if (data.ok) {
-                alert('User registered successfully')
-                navigation.navigate('Login')
+                alert('User logged in successfully')
+                navigation.navigate('Home')
             } else {
-                alert('User already exists')
+                alert('Invalid Credentials')
             }
         }).catch((err) => {
             console.log(err)
@@ -42,27 +42,23 @@ const Signup = () => {
     return (
         <View style={{height: vh(100), width: vw(100)}}>
             <View style={styles.container}>
-                <Image style={{width: 300, height: 300}} source={require('../assets/icon.png')} />
-                <Text style={{fontSize: 30, fontWeight: 900}}>Register User</Text>
-                <View style={styles.inputs}>
-                    <Text style={styles.inputsText}>Name: </Text>
-                    <Input placeholder='Enter your username' style={styles.inputArea} leftIcon={<Icon name='user' size={24}/>} onChangeText={(text) => setName(text)}/>
-                </View>
+                <Image style={{width: 300, height: 300}} source={require('../../assets/icon.png')} />
+                <Text style={{fontSize: 30, fontWeight: 900}}>Login</Text>
                 <View style={styles.inputs}>
                     <Text style={styles.inputsText}>Email: </Text>
-                    <Input placeholder='Enter your username' style={styles.inputArea} leftIcon={<Icon2 name='mail' size={24}/>} onChangeText={(text) => setEmail(text)}/>
+                    <Input placeholder='Enter your username' style={styles.inputArea} leftIcon={<Icon2 name='mail' size={24}/>} onChangeText={(text) => {setEmail(text)}}/>
                 </View>
                 <View style={styles.inputs}>
                     <Text style={styles.inputsText}>Password: </Text>
-                    <Input placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} secureTextEntry onChangeText={(text) => setPassword(text)}/>
+                    <Input secureTextEntry placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} onChangeText={(text) => setPassword(text)}/>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={handleRegister}>
-                    <Text style={{color: '#ffffff'}}>Sign Up</Text>
+                <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
+                    <Text style={{color: '#ffffff'}}>Login</Text>
                 </TouchableOpacity>
-                <Text style={{fontSize: 15, fontWeight: 500}}  onPress={() => navigation.navigate('Login')}>
-                    Already have an account?
-                    <Text style={{color: '#003399', fontWeight: '700'}}>
-                        Login
+                <Text style={{fontSize: 15, fontWeight: 500}}>
+                    Don't have an account?
+                    <Text style={{color: '#003399', fontWeight: '700'}} onPress={() => navigation.navigate('Signup')}>
+                        Signup
                     </Text>
                 </Text>
             </View>
@@ -70,7 +66,7 @@ const Signup = () => {
     )
 }
 
-export default Signup
+export default Login
 
 const styles = StyleSheet.create({
     container:{
