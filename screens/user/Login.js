@@ -6,9 +6,12 @@ import { Image, Input } from 'react-native-elements'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 import { useNavigation } from '@react-navigation/native'
 import {API_URL} from '@env'
+import { useDispatch } from 'react-redux'
+import { setUname } from '../../slices/Unameslice'
 
 
 const Login = () => {
+    const dispatch = useDispatch()
     const navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -32,7 +35,11 @@ const Login = () => {
         }).then((data) => {
             if (data.ok) {
                 alert('User logged in successfully')
-                navigation.navigate('Home')
+                data.json().then((data) => {
+                    console.log(data)
+                    dispatch(setUname(data.name))
+                })
+                navigation.navigate('Channels')
                 setStatusMsg('Login success')
             } else {
                 alert('Invalid Credentials')
