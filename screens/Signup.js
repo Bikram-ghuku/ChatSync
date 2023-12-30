@@ -28,9 +28,8 @@ const Signup = () => {
                 email: email,
                 pswd: password
             })
-        }).then((res) => res.json()).then((data) => {
-            console.log(data)
-            if (data.status == 'success') {
+        }).then((data) => {
+            if (data.ok) {
                 alert('User registered successfully')
                 navigation.navigate('Login')
             } else {
