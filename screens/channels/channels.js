@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const channels = () => {
+const Channels = () => {
   return (
     <View>
       <Text>channels</Text>
@@ -9,6 +9,6 @@ const channels = () => {
   )
 }
 
-export default channels
+export default Channels
 
 const styles = StyleSheet.create({})

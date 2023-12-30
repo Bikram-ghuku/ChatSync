@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
 import Signup from './screens/user/Signup';
+import Channels from './screens/channels/Channels';
 
 export default function App() {
 	const Stack = createNativeStackNavigator();
@@ -19,6 +20,7 @@ export default function App() {
 						<Stack.Screen name='Home' component={Home} options={{headerShown: false}}/>
 						<Stack.Screen name='Login' component={Login} options={{headerShown: false}}/>
 						<Stack.Screen name='Signup' component={Signup} options={{headerShown: false}} />
+						<Stack.Screen name='Channels' component={Channels} options={{headerShown: false}} />
 					</Stack.Navigator>
 				</SafeAreaProvider>
 			</NavigationContainer>
