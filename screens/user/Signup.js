@@ -12,11 +12,13 @@ const Signup = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [statusMsg, setStatusMsg] = useState('')
     const handleRegister = () => {
         if (name == '' || email == '' || password == '') {
             alert('Please fill all the fields')
             return
         }
+        setStatusMsg('Registering...')
         fetch(`${API_URL}/users/register`, {
             method: 'POST',
             headers: {
@@ -32,8 +34,10 @@ const Signup = () => {
             if (data.ok) {
                 alert('User registered successfully')
                 navigation.navigate('Login')
+                statusMsg('User registered successfully')
             } else {
                 alert('User already exists')
+                statusMsg('User already exists')
             }
         }).catch((err) => {
             console.log(err)
@@ -56,6 +60,7 @@ const Signup = () => {
                     <Text style={styles.inputsText}>Password: </Text>
                     <Input placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} secureTextEntry onChangeText={(text) => setPassword(text)}/>
                 </View>
+                <Text>{statusMsg}</Text>
                 <TouchableOpacity style={styles.button} onPress={handleRegister}>
                     <Text style={{color: '#ffffff'}}>Sign Up</Text>
                 </TouchableOpacity>

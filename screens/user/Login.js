@@ -12,11 +12,13 @@ const Login = () => {
     const navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [statusMsg, setStatusMsg] = useState('')
     const handleButtonPress = () => {
         if (email == '' || password == '') {
             alert('Please fill all the fields')
             return
         }
+        setStatusMsg('Logging in...')
         fetch(`${API_URL}/users/login`, {
             method: 'POST',
             headers: {
@@ -28,12 +30,13 @@ const Login = () => {
                 pswd: password
             })
         }).then((data) => {
-            console.log(data)
             if (data.ok) {
                 alert('User logged in successfully')
                 navigation.navigate('Home')
+                setStatusMsg('Login success')
             } else {
                 alert('Invalid Credentials')
+                setStatusMsg('Invalid Credentials')
             }
         }).catch((err) => {
             console.log(err)
@@ -52,6 +55,7 @@ const Login = () => {
                     <Text style={styles.inputsText}>Password: </Text>
                     <Input secureTextEntry placeholder='Enter your Password' style={styles.inputArea} leftIcon={<Icon name='lock' size={24}/>} onChangeText={(text) => setPassword(text)}/>
                 </View>
+                <Text>{statusMsg}</Text>
                 <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
                     <Text style={{color: '#ffffff'}}>Login</Text>
                 </TouchableOpacity>
