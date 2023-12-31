@@ -7,7 +7,7 @@ import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 import { useNavigation } from '@react-navigation/native'
 import {API_URL} from '@env'
 import { useDispatch } from 'react-redux'
-import { setUname } from '../../slices/Unameslice'
+import { setUname, setToken } from '../../slices/Unameslice'
 
 
 const Login = () => {
@@ -38,6 +38,7 @@ const Login = () => {
                 data.json().then((data) => {
                     console.log(data)
                     dispatch(setUname(data.name))
+                    dispatch(setToken(data.token))
                 })
                 navigation.navigate('Channels')
                 setStatusMsg('Login success')
