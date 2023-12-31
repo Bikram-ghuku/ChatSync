@@ -1,12 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import React, { useEffect } from 'react'
+import {API_URL} from '@env'
+import { useSelector } from 'react-redux'
+import { selectUname } from '../../slices/Unameslice'
 
 const Channels = () => {
-  return (
-    <View>
-      <Text>channels</Text>
-    </View>
-  )
+	const selector = useSelector(selectUname)
+	
+	return (
+    	<SafeAreaView>
+			<View>
+				<Text>channels</Text>
+			</View>
+			<View>
+				<Text>{selector}</Text>
+			</View>
+    	</SafeAreaView>
+  	)
 }
 
 export default Channels
