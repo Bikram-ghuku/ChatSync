@@ -34,12 +34,10 @@ const Login = () => {
             })
         }).then((data) => {
             if (data.ok) {
-                alert('User logged in successfully')
                 data.json().then((data) => {
-                    console.log(data)
                     dispatch(setUname(data.name))
                     dispatch(setToken(data.token))
-                    dispatch(setId(data.id))
+                    dispatch(setId(data.email))
                 })
                 navigation.navigate('Channels')
                 setStatusMsg('Login success')
