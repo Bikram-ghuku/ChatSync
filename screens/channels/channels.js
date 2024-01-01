@@ -34,23 +34,22 @@ const Channels = () => {
 					<Text style={styles.headerText}>Chats</Text>
 				</View>
 				<View style={styles.chatsContainer}>
-					<FlatList
-						data={channels}
-						renderItem={({item}) => (
-							<TouchableOpacity style={styles.chatSelector}>
-								{item.members.length > 2 ? <Users name="group" size={30} /> : <User name="user" size={30} />}
-								<View>
-									{
-										item.members.map(member => {
-											if(id.toString() !== member){
-												return <Text>{member} </Text>
-											}
-										})
-									}
-								</View>
-							</TouchableOpacity>
-						)}
-					/>
+					{channels.map((item, index) => {
+						return(	
+						<TouchableOpacity style={styles.chatSelector} id={index}>
+							{item.members.length > 2 ? <Users name="group" size={30} /> : <User name="user" size={30} />}
+							<View>
+								{
+									item.members.map(member => {
+										if(id.toString() !== member){
+											return <Text>{member} </Text>
+										}
+									})
+								}
+							</View>
+						</TouchableOpacity>
+						)
+					})}
 				</View>
 			</View>
     	</SafeAreaView>
