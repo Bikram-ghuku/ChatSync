@@ -1,14 +1,15 @@
 import { StyleSheet, Text, View, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import {API_URL} from '@env'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectUname, selectToken, selectId } from '../../slices/Unameslice'
 import { vh, vw } from 'react-native-expo-viewport-units'
 import  Users from 'react-native-vector-icons/FontAwesome'
 import User from 'react-native-vector-icons/FontAwesome'
+import { setChatId } from '../../slices/ChatidSlice'
 
 const Channels = () => {
-	const uname = useSelector(selectUname)
+	const dispatch = useDispatch()
 	const token = useSelector(selectToken)
 	const id = useSelector(selectId)
 	const [channels, setChannels] = useState([])
@@ -26,6 +27,11 @@ const Channels = () => {
 		})
 		.catch(err => console.log(err))
 	},[])
+
+	const loadChannel = (e) => {
+		dispatch(setChatId(e))
+		
+	}
 	
 	return (
     	<SafeAreaView>
@@ -34,9 +40,10 @@ const Channels = () => {
 					<Text style={styles.headerText}>Chats</Text>
 				</View>
 				<View style={styles.chatsContainer}>
-					{channels.map((item, index) => {
+
+					{channels && channels.map((item, index) => {
 						return(	
-						<TouchableOpacity style={styles.chatSelector} id={index}>
+						<TouchableOpacity style={styles.chatSelector} id={index} onPress={() => loadChannel(item.id)}>
 							{item.members.length > 2 ? <Users name="group" size={30} /> : <User name="user" size={30} />}
 							<View>
 								{
